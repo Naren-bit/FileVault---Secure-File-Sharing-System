@@ -210,6 +210,26 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
 const QRShareModal = ({ isOpen, onClose, shareData }) => {
     if (!isOpen || !shareData) return null;
 
+    // Download QR code as image
+    const handleDownloadQR = () => {
+        const link = document.createElement('a');
+        link.href = shareData.qrCode;
+        link.download = `filevault-share-qr-${Date.now()}.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    // Copy URL to clipboard
+    const handleCopyURL = async () => {
+        try {
+            await navigator.clipboard.writeText(shareData.shareUrl);
+            alert('Share URL copied to clipboard!');
+        } catch (err) {
+            console.error('Failed to copy:', err);
+        }
+    };
+
     return (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
             <div className="glass-card rounded-2xl p-6 w-full max-w-sm">
@@ -226,6 +246,24 @@ const QRShareModal = ({ isOpen, onClose, shareData }) => {
                         alt="Share QR Code"
                         className="w-56 h-56 rounded-lg"
                     />
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-2 mb-4">
+                    <button
+                        onClick={handleDownloadQR}
+                        className="flex-1 py-2 px-4 bg-gradient-to-r from-neon-cyan to-neon-green text-white font-medium rounded-lg btn-primary flex items-center justify-center gap-2"
+                    >
+                        <Download className="w-4 h-4" />
+                        Download QR
+                    </button>
+                    <button
+                        onClick={handleCopyURL}
+                        className="flex-1 py-2 px-4 bg-cyber-dark border border-slate-600 text-white font-medium rounded-lg hover:border-neon-cyan transition-colors flex items-center justify-center gap-2"
+                    >
+                        <Share2 className="w-4 h-4" />
+                        Copy URL
+                    </button>
                 </div>
 
                 <div className="bg-cyber-dark rounded-lg p-4 mb-4">
@@ -498,8 +536,8 @@ const EncryptedVault = () => {
             {/* Integrity Status Toast */}
             {integrityStatus && (
                 <div className={`flex items-center gap-3 p-4 rounded-xl ${integrityStatus.passed
-                        ? 'bg-neon-green/10 border border-neon-green/30'
-                        : 'bg-neon-red/10 border border-neon-red/30'
+                    ? 'bg-neon-green/10 border border-neon-green/30'
+                    : 'bg-neon-red/10 border border-neon-red/30'
                     }`}>
                     {integrityStatus.passed ? (
                         <CheckCircle className="w-6 h-6 text-neon-green" />

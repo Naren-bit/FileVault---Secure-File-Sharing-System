@@ -42,7 +42,7 @@ export const filesAPI = {
     }),
     share: (fileId, expiryMinutes) => api.post(`/files/${fileId}/share`, { expiryMinutes }),
     delete: (fileId) => api.delete(`/files/${fileId}`),
-    getShared: (token) => api.get(`/files/share/${token}`)
+    getSharedFile: (token) => api.get(`/files/share/${token}`)
 };
 
 // Admin API

@@ -12,6 +12,7 @@ import EncryptedVault from './components/Files/EncryptedVault';
 import PublicRepository from './components/Files/PublicRepository';
 import AuditLog from './components/Admin/AuditLog';
 import UserManagement from './components/Admin/UserManagement';
+import SharePage from './components/Share/SharePage';
 
 // Protected Route Component
 const ProtectedRoute = ({ children, allowedRoles = [] }) => {
@@ -124,6 +125,9 @@ function AppRoutes() {
                     </ProtectedRoute>
                 } />
             </Route>
+
+            {/* Share Page - Public access for shared files */}
+            <Route path="/share/:token" element={<SharePage />} />
 
             {/* Fallback */}
             <Route path="*" element={<Navigate to="/" replace />} />
