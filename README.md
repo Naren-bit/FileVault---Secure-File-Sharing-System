@@ -1,4 +1,4 @@
-# Secure File Sharing System (SFS)
+# FileVault - A Secure File Sharing System (SFS)
 
 A production-ready, enterprise-grade secure file sharing platform built for a university laboratory evaluation. Implements comprehensive security features including NIST SP 800-63-2 compliant authentication, AES-256-GCM encryption, and role-based access control.
 
@@ -112,37 +112,6 @@ JWT_EXPIRES_IN=1d
 PORT=5000
 FRONTEND_URL=http://localhost:5173
 ```
-
-## 📖 Viva Voce Prep Notes
-
-### Why AES-256-GCM over AES-256-CBC?
-- GCM provides **authenticated encryption** (AEAD)
-- Built-in integrity check via authentication tag
-- No padding oracle vulnerabilities
-- Parallelizable for better performance
-
-### Why bcrypt over SHA-256 for passwords?
-- bcrypt is **designed for password hashing**
-- Adaptive work factor (can increase as hardware improves)
-- Built-in salt prevents rainbow table attacks
-- Deliberately slow to prevent brute-force
-
-### Why TOTP over SMS-based 2FA?
-- Not vulnerable to SIM-swapping attacks
-- Works offline (no network required)
-- More secure (SMS can be intercepted)
-- Industry standard (RFC 6238)
-
-### Why httpOnly cookies for JWT?
-- Prevents XSS token theft (JavaScript cannot access)
-- Automatic transmission with requests
-- SameSite=Strict prevents CSRF
-
-### Why PBKDF2 for key derivation?
-- NIST approved (SP 800-132)
-- CPU-intensive (prevents brute-force)
-- 100,000 iterations = ~100ms per guess
-- 1 billion guesses ≈ 3+ years
 
 ## 📝 License
 
